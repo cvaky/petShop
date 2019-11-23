@@ -18,6 +18,7 @@ namespace Eshop.API.Controllers
 
         [ApiExplorerSettings(IgnoreApi = true)]
         // GET api/values
+        [ProducesResponseType(typeof(OrderViewModel[]), 200)]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -27,6 +28,7 @@ namespace Eshop.API.Controllers
 
         // GET api/values/5
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(OrderViewModel), 200)]
         public async Task<IActionResult> Get(int id)
         {
             var item = await _orderService.GetSingle(id, x => x.Product);

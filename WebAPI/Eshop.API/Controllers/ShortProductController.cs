@@ -17,10 +17,11 @@ namespace Eshop.API.Controllers
         }
 
         // GET api/values/5
-        [HttpGet("{animalCategoryId}")]
-        public async Task<IActionResult> GetByCategory(int animalCategoryId)
+        [ProducesResponseType(typeof(ShortProductViewModel[]), 200)]
+        [HttpGet("animalCategoryId")]
+        public async Task<IActionResult> GetByCategory([FromQuery]int? animalCategoryId = null)
         {
-            var items = await _shortProductService.Get(x => x.AnimalCategoryId == animalCategoryId);
+            var items = animalCategoryId != null ? await _shortProductService.Get(x => x.AnimalCategoryId == animalCategoryId) : await _shortProductService.GetAll();
             return Ok(items);
         }
     }

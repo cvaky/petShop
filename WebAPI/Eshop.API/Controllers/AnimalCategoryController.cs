@@ -19,6 +19,7 @@ namespace Eshop.API.Controllers
             _animalCategoryService = animalCategoryService;
         }
         // GET api/values
+        [ProducesResponseType(typeof(AnimalCategoryViewModel[]), 200)]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -28,6 +29,7 @@ namespace Eshop.API.Controllers
 
         [ApiExplorerSettings(IgnoreApi = true)]
         // GET api/values/5
+        [ProducesResponseType(typeof(AnimalCategoryViewModel), 200)]
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {

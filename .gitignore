@@ -1,4 +1,4 @@
-﻿################################################################################
+################################################################################
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
@@ -18,3 +18,4 @@
 /WebAPI/Eshop.API/eshop.db
 /WebAPI/Eshop.Entity/bin/Debug/netcoreapp2.2
 /WebAPI/Eshop.Entity/obj/Debug/netcoreapp2.2
+Angular/.editorconfig

@@ -1,0 +1,7 @@
+<div class="col-lg">
+    <div class="list-group">
+        <a  [routerLink]="['/category']" class="list-group-item"><span>All</span></a>
+        <a *ngFor="let category of categories"  [routerLink]="['/category',category.id]" class="list-group-item" ><span>{{category.name}}</span></a>
+    </div>
+
+</div>

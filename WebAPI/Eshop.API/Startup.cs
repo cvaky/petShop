@@ -9,6 +9,7 @@ using Eshop.Entity.UnitOfWork;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -56,6 +57,11 @@ namespace Eshop.API
                     });
 
             });
+
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "../../Angular/dist";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,6 +73,7 @@ namespace Eshop.API
             }
             else
             {
+                app.UseSpaStaticFiles();
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
@@ -77,6 +84,16 @@ namespace Eshop.API
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Values Api V1");
+            });
+
+            app.UseSpa(spa =>
+            {
+                spa.Options.SourcePath = "../../Angular";
+
+                if (env.IsDevelopment())
+                {
+                    spa.UseAngularCliServer(npmScript: "start");
+                }
             });
 
             using (var service = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
