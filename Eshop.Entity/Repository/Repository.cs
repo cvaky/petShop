@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -43,9 +42,10 @@ namespace Eshop.Entity.Repository
             return await _unitOfWork.Context.Set<T>().ToListAsync();
         }
 
-        public async Task<T> GetSingle(Expression<Func<T, bool>> predicate)
+        public async Task<T> GetSingle(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes)
         {
-            return await _unitOfWork.Context.Set<T>().FirstOrDefaultAsync(predicate);
+            DbSet<T> dbSet = _unitOfWork.Context.Set<T>();
+            return await dbSet.IncludeExt(includes).FirstOrDefaultAsync(predicate);
         }
 
         public async Task Insert(T entity)

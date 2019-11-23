@@ -32,10 +32,10 @@ namespace Eshop.Domain.Service.BaseService
             return _mapper.Map<IEnumerable<TviewModel>>(entities);
         }
 
-        public virtual async Task<IEnumerable<TviewModel>> GetSingle(int id)
+        public virtual async Task<TviewModel> GetSingle(int id, params Expression<Func<Tentity, object>>[] includes)
         {
-            var entity = await _unitOfWork.GetRepository<Tentity>().GetSingle(predicate: x => x.Id == id);
-            return _mapper.Map<IEnumerable<TviewModel>>(entity);
+            var entity = await _unitOfWork.GetRepository<Tentity>().GetSingle(predicate: x => x.Id == id, includes);
+            return _mapper.Map<TviewModel>(entity);
         }
         public virtual async Task<IEnumerable<TviewModel>> Get(Expression<Func<Tentity, bool>> predicate)
         {

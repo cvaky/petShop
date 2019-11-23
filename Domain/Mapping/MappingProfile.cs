@@ -1,14 +1,20 @@
 ﻿using AutoMapper;
 using Eshop.Domain.Domain;
+using Eshop.Domain.Service.BaseService;
 using Eshop.Entity.Entity;
 
 namespace Eshop.Domain.Mapping
 {
-    public class MappingProfile: Profile
+    public class MappingProfile : Profile
     {
         public MappingProfile()
         {
-            AllowNullCollections = true;
+            CreateMap<BaseEntity, BaseViewModel>();
+            CreateMap<BaseViewModel, BaseEntity>();
+
+            CreateMap<ShortProductViewModel, Product>();
+            CreateMap<Product, ShortProductViewModel>();
+
             CreateMap<ProductViewModel, Product>();
             CreateMap<Product, ProductViewModel>();
 

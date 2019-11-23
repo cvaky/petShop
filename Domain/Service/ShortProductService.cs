@@ -6,16 +6,14 @@ using Eshop.Entity.UnitOfWork;
 
 namespace Eshop.Domain.Service
 {
-    public class ProductService<TviewModel, Tentity> : BaseService<TviewModel, Tentity>
-                                        where TviewModel : ProductViewModel
+    public class ShortProductService<TviewModel, Tentity> : BaseService<TviewModel, Tentity>
+                                        where TviewModel : ShortProductViewModel
                                         where Tentity : Product
     {
-        public ProductService(IUnitOfWork unitOfWork, IMapper mapper)
+        public ShortProductService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-
-
     }
 }

@@ -8,20 +8,20 @@ namespace Eshop.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductController : ControllerBase
+    public class OrderController : ControllerBase
     {
-        private readonly ProductService<ProductViewModel, Product> _productService;
-        public ProductController(ProductService<ProductViewModel, Product> productService)
+        private readonly OrderService<OrderViewModel, Order> _orderService;
+        public OrderController(OrderService<OrderViewModel, Order> orderService)
         {
-            _productService = productService;
+            _orderService = orderService;
         }
 
+        [ApiExplorerSettings(IgnoreApi = true)]
         // GET api/values
         [HttpGet]
-        [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<IActionResult> GetAll()
         {
-            var items = await _productService.GetAll();
+            var items = await _orderService.GetAll();
             return Ok(items);
         }
 
@@ -29,8 +29,8 @@ namespace Eshop.API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var item = await _productService.GetSingle(id, x => x.AnimalCategory);
-            if(item == null)
+            var item = await _orderService.GetSingle(id, x => x.Product);
+            if (item == null)
             {
                 return NotFound();
             }
@@ -39,27 +39,25 @@ namespace Eshop.API.Controllers
 
         // POST api/values
         [HttpPost]
-        [ApiExplorerSettings(IgnoreApi = true)]
-        public async Task<IActionResult> Add([FromBody] ProductViewModel product)
+        public async Task<IActionResult> Add([FromBody] OrderViewModel order)
         {
-            if (product == null)
+            if (order == null)
             {
                 return BadRequest();
             }
-            var id = await _productService.Add(product);
-            return Created($"api/Product/{id}", id);
+            var id = await _orderService.Add(order);
+            return Created($"api/Order/{id}", id);
         }
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        [ApiExplorerSettings(IgnoreApi = true)]
-        public async Task<IActionResult> Update([FromBody] ProductViewModel product)
+        public async Task<IActionResult> Update([FromBody] OrderViewModel order)
         {
-            if (product == null)
+            if (order == null)
             {
                 return BadRequest();
             }
-            var id = await _productService.Update(product);
+            var id = await _orderService.Update(order);
             if (id == 0)
             {
                 return StatusCode(304);
@@ -70,16 +68,15 @@ namespace Eshop.API.Controllers
             }
             else
             {
-                return Accepted($"api/Product/{id}", id);
+                return Accepted($"api/Order/{id}", id);
             }
         }
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<IActionResult> Delete(int id)
         {
-            var respond = await _productService.Remove(id);
+            var respond = await _orderService.Remove(id);
             if (respond == 0)
             {
                 return NotFound();

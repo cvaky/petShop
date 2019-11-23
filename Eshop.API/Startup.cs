@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Eshop.Domain.Mapping;
@@ -31,8 +30,11 @@ namespace Eshop.API
         {
             services.AddDbContext<EshopContext>(options => options.UseSqlite("Data Source=eshop.db"));
 
-            services.AddTransient<IUnitOfWork, UnitOfWork>(); 
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient(typeof(ProductService<,>), typeof(ProductService<,>));
+            services.AddTransient(typeof(ShortProductService<,>), typeof(ShortProductService<,>));
+            services.AddTransient(typeof(AnimalCategoryService<,>), typeof(AnimalCategoryService<,>));
+            services.AddTransient(typeof(OrderService<,>), typeof(OrderService<,>));
 
             services.AddTransient(typeof(IBaseService<,>), typeof(BaseService<,>));
 
@@ -76,6 +78,11 @@ namespace Eshop.API
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Values Api V1");
             });
+
+            using (var service = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                service.ServiceProvider.GetService<EshopContext>().Seed();
+            }
         }
     }
 }

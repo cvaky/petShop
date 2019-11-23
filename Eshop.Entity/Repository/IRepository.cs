@@ -9,8 +9,7 @@ namespace Eshop.Entity.Repository
     {
         Task<IEnumerable<T>> GetAll();
         Task<IEnumerable<T>> Get(Expression<Func<T, bool>> predicate);
-        Task<T> GetSingle(Expression<Func<T, bool>> predicate);
-
+        Task<T> GetSingle(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes);
         Task Insert(T entity);
         void Delete(T entity);
         Task Delete(object id);

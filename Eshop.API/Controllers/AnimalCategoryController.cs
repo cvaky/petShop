@@ -1,4 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Eshop.Domain.Domain;
 using Eshop.Domain.Service;
 using Eshop.Entity.Entity;
@@ -8,58 +11,59 @@ namespace Eshop.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductController : ControllerBase
+    public class AnimalCategoryController : ControllerBase
     {
-        private readonly ProductService<ProductViewModel, Product> _productService;
-        public ProductController(ProductService<ProductViewModel, Product> productService)
+        private readonly AnimalCategoryService<AnimalCategoryViewModel, AnimalCategory> _animalCategoryService;
+        public AnimalCategoryController(AnimalCategoryService<AnimalCategoryViewModel, AnimalCategory> animalCategoryService)
         {
-            _productService = productService;
+            _animalCategoryService = animalCategoryService;
         }
-
         // GET api/values
         [HttpGet]
-        [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<IActionResult> GetAll()
         {
-            var items = await _productService.GetAll();
+            var items = await _animalCategoryService.GetAll();
             return Ok(items);
         }
 
+        [ApiExplorerSettings(IgnoreApi = true)]
         // GET api/values/5
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var item = await _productService.GetSingle(id, x => x.AnimalCategory);
-            if(item == null)
+            var item = await _animalCategoryService.GetSingle(id, null);
+            if (item == null)
             {
                 return NotFound();
             }
             return Ok(item);
         }
 
+
+        [ApiExplorerSettings(IgnoreApi = true)]
         // POST api/values
         [HttpPost]
-        [ApiExplorerSettings(IgnoreApi = true)]
-        public async Task<IActionResult> Add([FromBody] ProductViewModel product)
+        public async Task<IActionResult> Add([FromBody] AnimalCategoryViewModel product)
         {
             if (product == null)
             {
                 return BadRequest();
             }
-            var id = await _productService.Add(product);
-            return Created($"api/Product/{id}", id);
+            var id = await _animalCategoryService.Add(product);
+            return Created($"api/AnimalCategory/{id}", id);
         }
 
+
+        [ApiExplorerSettings(IgnoreApi = true)]
         // PUT api/values/5
         [HttpPut("{id}")]
-        [ApiExplorerSettings(IgnoreApi = true)]
-        public async Task<IActionResult> Update([FromBody] ProductViewModel product)
+        public async Task<IActionResult> Update([FromBody] AnimalCategoryViewModel product)
         {
             if (product == null)
             {
                 return BadRequest();
             }
-            var id = await _productService.Update(product);
+            var id = await _animalCategoryService.Update(product);
             if (id == 0)
             {
                 return StatusCode(304);
@@ -70,16 +74,16 @@ namespace Eshop.API.Controllers
             }
             else
             {
-                return Accepted($"api/Product/{id}", id);
+                return Accepted($"api/AnimalCategory/{id}", id);
             }
         }
 
+        [ApiExplorerSettings(IgnoreApi = true)]
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<IActionResult> Delete(int id)
         {
-            var respond = await _productService.Remove(id);
+            var respond = await _animalCategoryService.Remove(id);
             if (respond == 0)
             {
                 return NotFound();
