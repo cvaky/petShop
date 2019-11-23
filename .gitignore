@@ -10,3 +10,11 @@
 /Eshop.Entity/bin/Debug/netcoreapp2.2
 /Eshop.Entity/obj
 /Eshop.API/eshop.db
+/WebAPI/.vs
+/WebAPI/Domain/bin/Debug/netcoreapp2.2
+/WebAPI/Domain/obj
+/WebAPI/Eshop.API/bin/Debug/netcoreapp2.2
+/WebAPI/Eshop.API/obj
+/WebAPI/Eshop.API/eshop.db
+/WebAPI/Eshop.Entity/bin/Debug/netcoreapp2.2
+/WebAPI/Eshop.Entity/obj/Debug/netcoreapp2.2
