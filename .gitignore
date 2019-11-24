@@ -9,7 +9,6 @@
 /Eshop.API/obj
 /Eshop.Entity/bin/Debug/netcoreapp2.2
 /Eshop.Entity/obj
-/Eshop.API/eshop.db
 /WebAPI/.vs
 /WebAPI/Domain/bin/Debug/netcoreapp2.2
 /WebAPI/Domain/obj
@@ -20,3 +19,7 @@
 /WebAPI/Eshop.Entity/obj/Debug/netcoreapp2.2
 Angular/.editorconfig
 /Angular/.vscode/launch.json
+/WebAPI/Domain/bin/Release/netcoreapp2.2
+/WebAPI/Eshop.API/bin/Release/netcoreapp2.2
+/WebAPI/Eshop.Entity/bin/Release/netcoreapp2.2
+/WebAPI/Eshop.Entity/obj/Release/netcoreapp2.2
