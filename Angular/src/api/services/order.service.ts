@@ -13,8 +13,6 @@ import { OrderViewModel } from '../models/order-view-model';
 })
 class OrderService extends __BaseService {
   static readonly GetPath = '/api/Order/{id}';
-  static readonly UpdatePath = '/api/Order/{id}';
-  static readonly DeletePath = '/api/Order/{id}';
   static readonly AddPath = '/api/Order';
 
   constructor(
@@ -61,86 +59,10 @@ class OrderService extends __BaseService {
   }
 
   /**
-   * @param params The `OrderService.UpdateParams` containing the following parameters:
-   *
-   * - `id`:
-   *
-   * - `order`:
-   */
-  UpdateResponse(params: OrderService.UpdateParams): __Observable<__StrictHttpResponse<null>> {
-    let __params = this.newParams();
-    let __headers = new HttpHeaders();
-    let __body: any = null;
-
-    __body = params.order;
-    let req = new HttpRequest<any>(
-      'PUT',
-      this.rootUrl + `/api/Order/${params.id}`,
-      __body,
-      {
-        headers: __headers,
-        params: __params,
-        responseType: 'json'
-      });
-
-    return this.http.request<any>(req).pipe(
-      __filter(_r => _r instanceof HttpResponse),
-      __map((_r) => {
-        return _r as __StrictHttpResponse<null>;
-      })
-    );
-  }
-  /**
-   * @param params The `OrderService.UpdateParams` containing the following parameters:
-   *
-   * - `id`:
-   *
-   * - `order`:
-   */
-  Update(params: OrderService.UpdateParams): __Observable<null> {
-    return this.UpdateResponse(params).pipe(
-      __map(_r => _r.body as null)
-    );
-  }
-
-  /**
-   * @param id undefined
-   */
-  DeleteResponse(id: number): __Observable<__StrictHttpResponse<null>> {
-    let __params = this.newParams();
-    let __headers = new HttpHeaders();
-    let __body: any = null;
-
-    let req = new HttpRequest<any>(
-      'DELETE',
-      this.rootUrl + `/api/Order/${id}`,
-      __body,
-      {
-        headers: __headers,
-        params: __params,
-        responseType: 'json'
-      });
-
-    return this.http.request<any>(req).pipe(
-      __filter(_r => _r instanceof HttpResponse),
-      __map((_r) => {
-        return _r as __StrictHttpResponse<null>;
-      })
-    );
-  }
-  /**
-   * @param id undefined
-   */
-  Delete(id: number): __Observable<null> {
-    return this.DeleteResponse(id).pipe(
-      __map(_r => _r.body as null)
-    );
-  }
-
-  /**
    * @param order undefined
+   * @return Success
    */
-  AddResponse(order?: OrderViewModel): __Observable<__StrictHttpResponse<null>> {
+  AddResponse(order?: OrderViewModel): __Observable<__StrictHttpResponse<number>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -152,35 +74,28 @@ class OrderService extends __BaseService {
       {
         headers: __headers,
         params: __params,
-        responseType: 'json'
+        responseType: 'text'
       });
 
     return this.http.request<any>(req).pipe(
       __filter(_r => _r instanceof HttpResponse),
       __map((_r) => {
-        return _r as __StrictHttpResponse<null>;
+        return (_r as HttpResponse<any>).clone({ body: parseFloat((_r as HttpResponse<any>).body as string) }) as __StrictHttpResponse<number>
       })
     );
   }
   /**
    * @param order undefined
+   * @return Success
    */
-  Add(order?: OrderViewModel): __Observable<null> {
+  Add(order?: OrderViewModel): __Observable<number> {
     return this.AddResponse(order).pipe(
-      __map(_r => _r.body as null)
+      __map(_r => _r.body as number)
     );
   }
 }
 
 module OrderService {
-
-  /**
-   * Parameters for Update
-   */
-  export interface UpdateParams {
-    id: string;
-    order?: OrderViewModel;
-  }
 }
 
 export { OrderService }

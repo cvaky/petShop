@@ -1,7 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Eshop.Domain.Domain;
 using Eshop.Domain.Service;
 using Eshop.Entity.Entity;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Eshop.API.Controllers
@@ -29,6 +31,7 @@ namespace Eshop.API.Controllers
         // GET api/values/5
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(OrderViewModel), 200)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Get(int id)
         {
             var item = await _orderService.GetSingle(id, x => x.Product);
@@ -40,6 +43,8 @@ namespace Eshop.API.Controllers
         }
 
         // POST api/values
+        [ProducesResponseType(typeof(int), StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPost]
         public async Task<IActionResult> Add([FromBody] OrderViewModel order)
         {
@@ -47,11 +52,18 @@ namespace Eshop.API.Controllers
             {
                 return BadRequest();
             }
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            order.TimeStamp = DateTime.UtcNow;
             var id = await _orderService.Add(order);
             return Created($"api/Order/{id}", id);
         }
 
+
         // PUT api/values/5
+        [ApiExplorerSettings(IgnoreApi = true)]
         [HttpPut("{id}")]
         public async Task<IActionResult> Update([FromBody] OrderViewModel order)
         {
@@ -75,6 +87,7 @@ namespace Eshop.API.Controllers
         }
 
         // DELETE api/values/5
+        [ApiExplorerSettings(IgnoreApi = true)]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {

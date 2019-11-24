@@ -19,3 +19,4 @@
 /WebAPI/Eshop.Entity/bin/Debug/netcoreapp2.2
 /WebAPI/Eshop.Entity/obj/Debug/netcoreapp2.2
 Angular/.editorconfig
+/Angular/.vscode/launch.json

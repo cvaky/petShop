@@ -2,6 +2,7 @@
 using Eshop.Domain.Domain;
 using Eshop.Domain.Service;
 using Eshop.Entity.Entity;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Eshop.API.Controllers
@@ -28,6 +29,7 @@ namespace Eshop.API.Controllers
 
         // GET api/values/5
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ProductViewModel), 200)]
         public async Task<IActionResult> Get(int id)
         {

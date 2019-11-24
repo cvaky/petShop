@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Eshop.Domain.Domain;
 using Eshop.Domain.Service;
 using Eshop.Entity.Entity;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Eshop.API.Controllers
@@ -29,6 +30,7 @@ namespace Eshop.API.Controllers
 
         [ApiExplorerSettings(IgnoreApi = true)]
         // GET api/values/5
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(AnimalCategoryViewModel), 200)]
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)

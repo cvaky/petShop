@@ -6,6 +6,6 @@ namespace Eshop.Domain.Service.BaseService
 {
     public class BaseViewModel
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
     }
 }

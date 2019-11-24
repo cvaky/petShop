@@ -47,7 +47,7 @@ namespace Eshop.Domain.Service.BaseService
             var entity = _mapper.Map<Tentity>(obj);
             await _unitOfWork.GetRepository<Tentity>().Insert(entity);
             await _unitOfWork.Save();
-            return obj.Id;
+            return entity.Id;
         }
 
         public virtual async Task<int> Update(TviewModel obj)
@@ -55,7 +55,7 @@ namespace Eshop.Domain.Service.BaseService
             var entity = _mapper.Map<Tentity>(obj);
              _unitOfWork.GetRepository<Tentity>().Update(entity);
             await _unitOfWork.Save();
-            return obj.Id;
+            return entity.Id;
         }
         public virtual async Task<int> Remove(int id)
         {

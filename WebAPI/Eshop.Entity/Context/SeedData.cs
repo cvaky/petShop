@@ -8,25 +8,25 @@ namespace Eshop.Entity.Context
     {
         public static void Seed(this EshopContext context)
         {
+            var dogCategory = new AnimalCategory
+            {
+                Name = "Dog"
+            };
+            var catCategory = new AnimalCategory
+            {
+                Name = "Cat"
+            };
+            var othersCategory = new AnimalCategory
+            {
+                Name = "Others"
+            };
             if (!context.AnimalCategories.Any())
             {
                 var animalCategories = new List<AnimalCategory>
                 {
-                    new AnimalCategory
-                    {
-                        Id = 1,
-                        Name = "Dog"
-                    },
-                    new AnimalCategory
-                    {
-                        Id = 2,
-                        Name = "Cat"
-                    },
-                    new AnimalCategory
-                    {
-                        Id = 3,
-                        Name = "Others"
-                    }
+                    dogCategory,
+                    catCategory,
+                    othersCategory
                 };
                 context.AnimalCategories.AddRange(animalCategories);
                 context.SaveChanges();
@@ -37,33 +37,29 @@ namespace Eshop.Entity.Context
                 {
                     new Product
                     {
-                        Id = 1,
                         Name = "Blue Baffalo",
-                        AnimalCategoryId = 1,
+                        AnimalCategoryId = dogCategory.Id,
                         Price = 20,
                         Description = "Blue Buffalo Life Protection Formula Adult Chicken & Brown Rice Recipe Dry Dog Food"
                     },
                     new Product
                     {
-                        Id = 2,
                         Name = "Taste Of Wild",
-                        AnimalCategoryId = 1,
+                        AnimalCategoryId = dogCategory.Id,
                         Price = 35,
                         Description = "Taste of the Wild High Prairie Grain-Free Dry Dog Food"
                     },
                     new Product
                     {
-                        Id = 3,
                         Name = "American Journey",
-                        AnimalCategoryId = 1,
+                        AnimalCategoryId =dogCategory.Id,
                         Description = "American Journey Salmon & Sweet Potato Recipe Grain-Free Dry Dog Food",
                         Price = 30
                     },
                     new Product
                     {
-                        Id = 4,
                         Name = "Fancy Feast",
-                        AnimalCategoryId = 2,
+                        AnimalCategoryId = catCategory.Id,
                         Description = "Fancy Feast Grilled Seafood Feast Variety Pack Canned Cat Food",
                         Price = 15
                     }
