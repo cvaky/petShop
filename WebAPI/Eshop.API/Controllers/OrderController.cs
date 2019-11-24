@@ -52,10 +52,6 @@ namespace Eshop.API.Controllers
             {
                 return BadRequest();
             }
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
             order.TimeStamp = DateTime.UtcNow;
             var id = await _orderService.Add(order);
             return Created($"api/Order/{id}", id);

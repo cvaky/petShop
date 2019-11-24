@@ -1,11 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using Eshop.Domain.Domain;
 using Eshop.Domain.Mapping;
 using Eshop.Domain.Service;
 using Eshop.Domain.Service.BaseService;
+using Eshop.Domain.Validators;
 using Eshop.Entity.Context;
 using Eshop.Entity.UnitOfWork;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -41,7 +45,12 @@ namespace Eshop.API
 
             services.AddAutoMapper(typeof(MappingProfile));
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            // Validators
+            services.AddTransient<IValidator<OrderViewModel>, OrderValidator>();
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddFluentValidation();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "Values Api", Version = "v1" });
