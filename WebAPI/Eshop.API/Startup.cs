@@ -40,6 +40,7 @@ namespace Eshop.API
             else
                 services.AddDbContext<EshopContext>(options =>
                         options.UseSqlite("Data Source=eshop.db"));
+            services.BuildServiceProvider().GetService<EshopContext>().Database.Migrate();
 
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient(typeof(ProductService<,>), typeof(ProductService<,>));
