@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Eshop.Domain.Domain;
@@ -33,7 +34,12 @@ namespace Eshop.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<EshopContext>(options => options.UseSqlite("Data Source=eshop.db"));
+            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
+                services.AddDbContext<EshopContext>(options =>
+                        options.UseSqlServer(Configuration.GetConnectionString("MyDbConnection")));
+            else
+                services.AddDbContext<EshopContext>(options =>
+                        options.UseSqlite("Data Source=eshop.db"));
 
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient(typeof(ProductService<,>), typeof(ProductService<,>));
