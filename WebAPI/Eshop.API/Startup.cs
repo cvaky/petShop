@@ -72,7 +72,7 @@ namespace Eshop.API
 
             services.AddSpaStaticFiles(configuration =>
             {
-                configuration.RootPath = "../../Angular/dist";
+                configuration.RootPath = "Eshop";
             });
         }
 
