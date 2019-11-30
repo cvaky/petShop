@@ -97,17 +97,18 @@ namespace Eshop.API
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Values Api V1");
             });
-
-            app.UseSpa(spa =>
+            if (env.IsDevelopment())
             {
-                spa.Options.SourcePath = "../../Angular";
-
-                if (env.IsDevelopment())
+                    app.UseSpa(spa =>
                 {
-                    spa.UseAngularCliServer(npmScript: "start");
-                }
-            });
+                    spa.Options.SourcePath = "../../Angular";
 
+                    if (env.IsDevelopment())
+                    {
+                        spa.UseAngularCliServer(npmScript: "start");
+                    }
+                });
+            }
             using (var service = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
                 service.ServiceProvider.GetService<EshopContext>().Seed();
