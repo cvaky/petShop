@@ -85,6 +85,7 @@ namespace Eshop.API
             }
             else
             {
+                app.UseDefaultFiles();
                 app.UseSpaStaticFiles();
                 app.UseHsts();
             }
